@@ -112,6 +112,11 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end gap-1.5 sm:gap-2">
+          <AnimatedThemeToggler
+            variant="star"
+            className="btn btn-ghost btn-circle border border-base-300/70 bg-base-100/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-base-200/80 lg:hidden"
+            aria-label="Toggle theme"
+          />
           <div className="avatar online hidden sm:flex">
             <div className="w-9 rounded-full bg-primary/15 text-primary ring-2 ring-primary/20 transition-transform duration-300 hover:scale-105 lg:w-10">
               <span className="text-xs font-semibold lg:text-sm">U</span>
