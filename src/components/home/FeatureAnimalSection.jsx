@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const FeatureAnimalSection = async () => {
   const featuredAnimals = async () => {
@@ -85,9 +86,12 @@ const FeatureAnimalSection = async () => {
                 </p>
                 <p className="text-xs text-gray-400">Negotiable</p>
               </div>
-              <button className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors">
+              <Link
+                href={`/animaldetails/${animal.id}`}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors"
+              >
                 View Details
-              </button>
+              </Link>
             </div>
           </div>
         ))}
