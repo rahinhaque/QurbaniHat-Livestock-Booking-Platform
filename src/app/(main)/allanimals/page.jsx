@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tag, MapPin } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const AllAnimalPage = async() => {
   const allAnimalsData = async() =>{
@@ -33,13 +34,15 @@ const AllAnimalPage = async() => {
             >
               {/* Image Container */}
               <div className="relative h-64 w-full overflow-hidden bg-gray-100">
-                <img 
+                <Image 
                   src={animal.image || 'https://via.placeholder.com/400x300?text=No+Image'} 
                   alt={animal.name || 'Animal'}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                 />
                 {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-90" />
                 
                 {/* Type Badge */}
                 {animal.type && (
