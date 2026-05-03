@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import navbarLogo from '@/assets/navbar.png';
 import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
+import { authClient } from '@/lib/auth-client';
 
 const links = [
   { label: 'Home', href: '/' },
@@ -16,6 +17,11 @@ const links = [
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+  console.log(user);
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-base-200/80 bg-base-100/90 backdrop-blur-md">
@@ -117,25 +123,34 @@ const Navbar = () => {
             className="btn btn-ghost btn-circle border border-base-300/70 bg-base-100/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-base-200/80 lg:hidden"
             aria-label="Toggle theme"
           />
-          <div className="avatar online hidden sm:flex">
-            <div className="w-9 rounded-full bg-primary/15 text-primary ring-2 ring-primary/20 transition-transform duration-300 hover:scale-105 lg:w-10">
-              <span className="text-xs font-semibold lg:text-sm">U</span>
-            </div>
+          <div className="tooltip tooltip-bottom hidden sm:flex" data-tip="Account">
+            <Link href="/profile" className="avatar online cursor-pointer transition-transform duration-300 hover:scale-105">
+              <div className="w-9 rounded-full bg-primary/15 text-primary ring-2 ring-primary/20 flex items-center justify-center overflow-hidden lg:w-10">
+                {user?.image ? (
+                  <Image src={user.image} alt={user?.name || "User"} width={40} height={40} className="object-cover w-full h-full" />
+                ) : (
+                  <span className="text-sm font-bold uppercase">{user?.name ? user.name.charAt(0) : "U"}</span>
+                )}
+              </div>
+            </Link>
           </div>
           <div
             className="tooltip tooltip-bottom md:hidden"
             data-tip="Account"
           >
-            <button className="btn btn-ghost btn-circle">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5.121 17.804A9.955 9.955 0 0112 15c2.607 0 4.98.996 6.879 2.624M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-            </button>
+            <Link href="/profile" className="btn btn-ghost btn-circle avatar">
+              {user?.image ? (
+                <div className="w-9 rounded-full overflow-hidden border border-base-200 shadow-sm transition-transform duration-300 hover:scale-105">
+                  <Image src={user.image} alt={user?.name || "User"} width={36} height={36} className="object-cover w-full h-full" />
+                </div>
+              ) : (
+                <div className="w-9 rounded-full bg-base-200/50 flex items-center justify-center text-base-content/70 border border-base-200 transition-all duration-300 hover:bg-base-200 hover:scale-105">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A9.955 9.955 0 0112 15c2.607 0 4.98.996 6.879 2.624M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+              )}
+            </Link>
           </div>
           <Link
             href="/login"
