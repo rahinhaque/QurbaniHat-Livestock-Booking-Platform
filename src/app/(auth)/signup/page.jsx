@@ -1,60 +1,125 @@
+"use client";
 import Link from "next/link";
 import React from "react";
+import { useForm } from "react-hook-form";
 
 const SignUpPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleSignUp = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-4">
       <div className="card w-full max-w-md bg-base-100 shadow-2xl border border-base-200/60 rounded-[2rem] p-4 sm:p-6 transition-all duration-300 hover:shadow-3xl mt-8 mb-8">
         <div className="card-body px-4 py-6 sm:p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-extrabold tracking-tight text-base-content">Create an Account</h1>
-            <p className="text-base-content/60 mt-2 text-sm">Join us and get started today.</p>
+            <h1 className="text-3xl font-extrabold tracking-tight text-base-content">
+              Create an Account
+            </h1>
+            <p className="text-base-content/60 mt-2 text-sm">
+              Join us and get started today.
+            </p>
           </div>
 
-          <fieldset className="fieldset w-full p-0 border-0 bg-transparent">
-            
-            <label className="label">
-              <span className="label-text font-semibold">Name</span>
-            </label>
-            <input 
-              type="text" 
-              className="input input-bordered w-full focus:input-primary transition-all duration-300" 
-              placeholder="Enter your full name" 
-            />
+          <form onSubmit={handleSubmit(handleSignUp)}>
+            <fieldset className="fieldset w-full p-0 border-0 bg-transparent">
+              {/* Name */}
+              <label className="label">
+                <span className="label-text font-semibold">Name</span>
+              </label>
+              <input
+                type="text"
+                {...register("name", { required: "Name is required" })}
+                className={`input input-bordered w-full focus:input-primary transition-all duration-300 ${
+                  errors.name ? "input-error" : ""
+                }`}
+                placeholder="Enter your full name"
+              />
+              {errors.name && (
+                <p className="text-error text-xs mt-1">{errors.name.message}</p>
+              )}
 
-            <label className="label mt-4">
-              <span className="label-text font-semibold">Email</span>
-            </label>
-            <input 
-              type="email" 
-              className="input input-bordered w-full focus:input-primary transition-all duration-300" 
-              placeholder="Enter your email" 
-            />
+              {/* Email */}
+              <label className="label mt-4">
+                <span className="label-text font-semibold">Email</span>
+              </label>
+              <input
+                type="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Enter a valid email address",
+                  },
+                })}
+                className={`input input-bordered w-full focus:input-primary transition-all duration-300 ${
+                  errors.email ? "input-error" : ""
+                }`}
+                placeholder="Enter your email"
+              />
+              {errors.email && (
+                <p className="text-error text-xs mt-1">{errors.email.message}</p>
+              )}
 
-            <label className="label mt-4">
-              <span className="label-text font-semibold">Photo URL</span>
-            </label>
-            <input 
-              type="url" 
-              className="input input-bordered w-full focus:input-primary transition-all duration-300" 
-              placeholder="https://example.com/your-photo.jpg" 
-            />
+              {/* Photo URL */}
+              <label className="label mt-4">
+                <span className="label-text font-semibold">Photo URL</span>
+              </label>
+              <input
+                type="url"
+                {...register("photoURL", {
+                  required: "Photo URL is required",
+                  pattern: {
+                    value: /^https?:\/\/.+\..+/,
+                    message: "Enter a valid URL",
+                  },
+                })}
+                className={`input input-bordered w-full focus:input-primary transition-all duration-300 ${
+                  errors.photoURL ? "input-error" : ""
+                }`}
+                placeholder="https://example.com/your-photo.jpg"
+              />
+              {errors.photoURL && (
+                <p className="text-error text-xs mt-1">{errors.photoURL.message}</p>
+              )}
 
-            <label className="label mt-4">
-              <span className="label-text font-semibold">Password</span>
-            </label>
-            <input 
-              type="password" 
-              className="input input-bordered w-full focus:input-primary transition-all duration-300" 
-              placeholder="Create a password" 
-            />
-            
-            <button className="btn btn-primary w-full shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all duration-300 rounded-xl mt-8">
-              Register
-            </button>
-          </fieldset>
+              {/* Password */}
+              <label className="label mt-4">
+                <span className="label-text font-semibold">Password</span>
+              </label>
+              <input
+                type="password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                className={`input input-bordered w-full focus:input-primary transition-all duration-300 ${
+                  errors.password ? "input-error" : ""
+                }`}
+                placeholder="Create a password"
+              />
+              {errors.password && (
+                <p className="text-error text-xs mt-1">{errors.password.message}</p>
+              )}
 
-          <div className="divider text-xs text-base-content/50 my-8 font-medium">OR CONTINUE WITH</div>
+              <button className="btn btn-primary w-full shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all duration-300 rounded-xl mt-8">
+                Register
+              </button>
+            </fieldset>
+          </form>
+
+          <div className="divider text-xs text-base-content/50 my-8 font-medium">
+            OR CONTINUE WITH
+          </div>
 
           <div className="flex flex-col gap-3.5">
             <button className="btn btn-outline bg-base-100 hover:bg-base-200 hover:text-base-content border-base-300 transition-all duration-300 hover:-translate-y-0.5 rounded-xl">
@@ -104,10 +169,16 @@ const SignUpPage = () => {
               Sign up with GitHub
             </button>
           </div>
-          
+
           <div className="text-center mt-8">
             <p className="text-sm text-base-content/70">
-              Already have an account? <Link href="/login" className="font-semibold text-primary hover:text-primary-focus hover:underline transition-colors">Log in</Link>
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="font-semibold text-primary hover:text-primary-focus hover:underline transition-colors"
+              >
+                Log in
+              </Link>
             </p>
           </div>
         </div>
