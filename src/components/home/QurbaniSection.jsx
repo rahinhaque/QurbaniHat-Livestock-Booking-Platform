@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, CheckCircle2, ShieldAlert, HeartHandshake, Info } from 'lucide-react';
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 
 const faqCategories = [
   {
@@ -10,7 +11,7 @@ const faqCategories = [
     items: [
       {
         q: 'How do I check the age of the animal online?',
-        a: 'The "teeth" rule applies: 2 permanent teeth for a cow means it’s roughly 2 years old. Our product videos specifically show the animal’s mouth/teeth for verification so you can be confident in your choice.'
+        a: 'The "teeth" rule applies: 2 permanent teeth for a cow means it\'s roughly 2 years old. Our product videos specifically show the animal\'s mouth/teeth for verification so you can be confident in your choice.'
       },
       {
         q: 'What are the physical signs of a healthy animal?',
@@ -97,63 +98,72 @@ const QurbaniSection = () => {
     <section className="py-16 bg-gray-50/50 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-12">
+        <AnimateOnScroll animation="fadeInDown" duration="0.6s" className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
             Qurbani Tips & Guidelines
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Everything you need to know about selecting, caring for, and fulfilling the requirements of your Qurbani animal.
           </p>
-        </div>
+        </AnimateOnScroll>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* FAQ Accordions */}
           <div className="lg:col-span-2 space-y-8">
             {faqCategories.map((category, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <div className="flex items-center gap-3 mb-6">
-                  {category.icon}
-                  <h3 className="text-xl font-bold text-gray-800">{category.title}</h3>
+              <AnimateOnScroll
+                key={idx}
+                animation="fadeInLeft"
+                duration="0.6s"
+                delay={`${idx * 0.15}s`}
+              >
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                  <div className="flex items-center gap-3 mb-6">
+                    {category.icon}
+                    <h3 className="text-xl font-bold text-gray-800">{category.title}</h3>
+                  </div>
+                  <div className="space-y-1">
+                    {category.items.map((item, itemIdx) => (
+                      <AccordionItem key={itemIdx} question={item.q} answer={item.a} />
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  {category.items.map((item, itemIdx) => (
-                    <AccordionItem key={itemIdx} question={item.q} answer={item.a} />
-                  ))}
-                </div>
-              </div>
+              </AnimateOnScroll>
             ))}
           </div>
 
           {/* Quick Reference Table */}
           <div className="lg:col-span-1">
-            <div className="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-2xl shadow-sm border border-emerald-100 sticky top-8">
-              <div className="flex items-center gap-3 mb-6">
-                <Info className="w-6 h-6 text-emerald-600" />
-                <h3 className="text-xl font-bold text-emerald-900">Quick Reference</h3>
+            <AnimateOnScroll animation="fadeInRight" duration="0.6s" delay="0.2s">
+              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-2xl shadow-sm border border-emerald-100 sticky top-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <Info className="w-6 h-6 text-emerald-600" />
+                  <h3 className="text-xl font-bold text-emerald-900">Quick Reference</h3>
+                </div>
+                
+                <div className="overflow-hidden bg-white rounded-xl shadow-sm border border-emerald-100/50">
+                  <table className="min-w-full divide-y divide-emerald-100">
+                    <tbody className="divide-y divide-emerald-50">
+                      {referenceData.map((row, idx) => (
+                        <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50/30'}>
+                          <td className="px-4 py-4 text-sm font-semibold text-emerald-900 w-1/3 align-top">
+                            {row.q}
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-700 w-2/3">
+                            {row.a}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div className="mt-6 text-sm text-emerald-700/80 italic text-center">
+                  Review these guidelines carefully to ensure a smooth and blessed Qurbani experience.
+                </div>
               </div>
-              
-              <div className="overflow-hidden bg-white rounded-xl shadow-sm border border-emerald-100/50">
-                <table className="min-w-full divide-y divide-emerald-100">
-                  <tbody className="divide-y divide-emerald-50">
-                    {referenceData.map((row, idx) => (
-                      <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50/30'}>
-                        <td className="px-4 py-4 text-sm font-semibold text-emerald-900 w-1/3 align-top">
-                          {row.q}
-                        </td>
-                        <td className="px-4 py-4 text-sm text-gray-700 w-2/3">
-                          {row.a}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              
-              <div className="mt-6 text-sm text-emerald-700/80 italic text-center">
-                Review these guidelines carefully to ensure a smooth and blessed Qurbani experience.
-              </div>
-            </div>
+            </AnimateOnScroll>
           </div>
 
         </div>

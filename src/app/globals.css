@@ -2,9 +2,24 @@
 @import "@heroui/styles";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "animate.css";
 
 @custom-variant dark (&:is(.dark *)); 
 @plugin "daisyui";
+
+/* Animate.css custom delay helpers */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+.animate-delay-600 { animation-delay: 0.6s; }
+.animate-delay-700 { animation-delay: 0.7s; }
+.animate-delay-800 { animation-delay: 0.8s; }
+
+/* Shorter duration for subtle animations */
+.animate-faster { animation-duration: 0.5s; }
+.animate-fast   { animation-duration: 0.7s; }
 
 /* Button press effect */
 .button:active,

@@ -51,7 +51,7 @@ if(res){
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-4">
-      <div className="card w-full max-w-md bg-base-100 shadow-2xl border border-base-200/60 rounded-[2rem] p-4 sm:p-6 transition-all duration-300 hover:shadow-3xl">
+      <div className="card w-full max-w-md bg-base-100 shadow-2xl border border-base-200/60 rounded-[2rem] p-4 sm:p-6 transition-all duration-300 hover:shadow-3xl animate__animated animate__fadeInUp animate__faster">
         <div className="card-body px-4 py-6 sm:p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-extrabold tracking-tight text-base-content">

@@ -81,7 +81,7 @@ const ProfilePage = () => {
         </Link>
 
         {/* Profile Card */}
-        <div className="bg-base-100 rounded-3xl border border-base-200 shadow-xl overflow-hidden">
+        <div className="bg-base-100 rounded-3xl border border-base-200 shadow-xl overflow-hidden animate__animated animate__fadeInUp animate__fast">
 
           {/* Hero Banner */}
           <div className="relative h-36 sm:h-44 bg-gradient-to-br from-amber-400 via-amber-500 to-orange-500 overflow-hidden">
