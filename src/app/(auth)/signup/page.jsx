@@ -20,7 +20,7 @@ const SignUpPage = () => {
     email: email, // required
     password:password, // required
     image: photoURL,
-    callbackURL: "/",
+    callbackURL: "/login",
 });
 // console.log(data ,error)
 if(error){
