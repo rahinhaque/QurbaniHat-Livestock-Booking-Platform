@@ -1,10 +1,15 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignUpPage = () => {
+
+  const [isShowPassword, setIsShowPassword] = useState(false);
+
+
   const {
     register,
     handleSubmit,
@@ -81,7 +86,9 @@ if(data){
                 placeholder="Enter your email"
               />
               {errors.email && (
-                <p className="text-error text-xs mt-1">{errors.email.message}</p>
+                <p className="text-error text-xs mt-1">
+                  {errors.email.message}
+                </p>
               )}
 
               {/* Photo URL */}
@@ -103,30 +110,43 @@ if(data){
                 placeholder="https://example.com/your-photo.jpg"
               />
               {errors.photoURL && (
-                <p className="text-error text-xs mt-1">{errors.photoURL.message}</p>
+                <p className="text-error text-xs mt-1">
+                  {errors.photoURL.message}
+                </p>
               )}
 
               {/* Password */}
               <label className="label mt-4">
                 <span className="label-text font-semibold">Password</span>
               </label>
-              <input
-                type="password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                })}
-                className={`input input-bordered w-full focus:input-primary transition-all duration-300 ${
-                  errors.password ? "input-error" : ""
-                }`}
-                placeholder="Create a password"
-              />
-              {errors.password && (
-                <p className="text-error text-xs mt-1">{errors.password.message}</p>
-              )}
+              <div className="relative w-full">
+                <input
+                  type={isShowPassword ? "text" : "password"}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                  className={`input input-bordered w-full focus:input-primary transition-all duration-300 ${
+                    errors.password ? "input-error" : ""
+                  }`}
+                  placeholder="Create a password"
+                />
+
+                <span
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-base-content/50 hover:text-base-content transition-colors"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                >
+                  {isShowPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+                {errors.password && (
+                  <p className="text-error text-xs mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
 
               <button className="btn btn-primary w-full shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all duration-300 rounded-xl mt-8">
                 Register
