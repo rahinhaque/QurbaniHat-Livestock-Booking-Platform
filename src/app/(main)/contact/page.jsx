@@ -1,5 +1,10 @@
 import React from 'react';
 
+export const metadata = {
+  title: "Contact Us",
+  description: "Get in touch with the QurbaniHat support team for assistance with livestock booking, delivery coordination, or any other inquiries.",
+};
+
 const ContactPage = () => {
   return (
     <main className="bg-base-100 text-base-content">

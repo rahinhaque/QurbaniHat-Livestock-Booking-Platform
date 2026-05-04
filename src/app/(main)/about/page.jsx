@@ -2,6 +2,11 @@ import Image from 'next/image';
 import React from 'react';
 import ceoImage from '@/assets/ceo.jpg';
 
+export const metadata = {
+  title: "About Us",
+  description: "Learn about QurbaniHat's mission to combine tradition with technology for a meaningful and stress-free Qurbani experience.",
+};
+
 const AboutUsPage = () => {
   return (
     <main className="bg-base-100 text-base-content">

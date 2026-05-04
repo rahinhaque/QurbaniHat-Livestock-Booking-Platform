@@ -2,6 +2,11 @@ import React from 'react';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 import AnimalGrid from '@/components/allanimals/AnimalGrid';
 
+export const metadata = {
+  title: "All Animals",
+  description: "Browse our extensive collection of premium, healthy livestock available for Qurbani. Find the perfect animal that meets your requirements.",
+};
+
 const AllAnimalPage = async () => {
   const allAnimalsData = async () => {
     const res = await fetch('https://qurbanihat-server.onrender.com/animals', { cache: 'no-store' });

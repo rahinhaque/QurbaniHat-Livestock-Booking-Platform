@@ -2,6 +2,17 @@
 import Image from "next/image";
 import BuyNowButton from "@/components/BuyNowButton"; // ← add this import
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const res = await fetch(`https://qurbanihat-server.onrender.com/animals/${id}`);
+  const animal = await res.json();
+
+  return {
+    title: animal.name,
+    description: animal.description || `Details for ${animal.name} - ${animal.breed} ${animal.type}`,
+  };
+}
+
 const AnimalDetails = async ({ params }) => {
   const { id } = await params;
   const res = await fetch(
