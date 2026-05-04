@@ -36,6 +36,15 @@ if(data){
 }
   };
 
+
+
+ const handleGoogleSignIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+    console.log(data);
+ } 
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-4">
       <div className="card w-full max-w-md bg-base-100 shadow-2xl border border-base-200/60 rounded-[2rem] p-4 sm:p-6 transition-all duration-300 hover:shadow-3xl mt-8 mb-8">
@@ -159,7 +168,8 @@ if(data){
           </div>
 
           <div className="flex flex-col gap-3.5">
-            <button className="btn btn-outline bg-base-100 hover:bg-base-200 hover:text-base-content border-base-300 transition-all duration-300 hover:-translate-y-0.5 rounded-xl">
+            <button onClick={handleGoogleSignIn}
+             className="btn btn-outline bg-base-100 hover:bg-base-200 hover:text-base-content border-base-300 transition-all duration-300 hover:-translate-y-0.5 rounded-xl">
               <svg
                 aria-label="Google logo"
                 width="20"
