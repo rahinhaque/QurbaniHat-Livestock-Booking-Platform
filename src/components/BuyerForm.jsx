@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 const BuyerForm = ({ animal, isOpen, onClose }) => {
   const [mounted, setMounted] = useState(false);
@@ -164,9 +165,16 @@ const BuyerForm = ({ animal, isOpen, onClose }) => {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white text-sm font-semibold rounded-xl active:scale-95 transition-all"
+            className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white text-sm font-semibold rounded-xl active:scale-95 transition-all flex items-center justify-center gap-2"
           >
-            {loading ? "Confirming..." : "Confirm Booking"}
+            {loading ? (
+              <>
+                <ClipLoader size={18} color="#ffffff" />
+                <span>Confirming...</span>
+              </>
+            ) : (
+              "Confirm Booking"
+            )}
           </button>
         </div>
       </div>

@@ -4,10 +4,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
 
 const SignUpPage = () => {
 
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const {
@@ -17,23 +19,27 @@ const SignUpPage = () => {
   } = useForm();
 
   const handleSignUp = async(formData) => {
+    setLoading(true);
     console.log(formData);
     const { name, email, password, photoURL } = formData;
 
-    const { data, error } = await authClient.signUp.email({
-    name: name, // required
-    email: email, // required
-    password:password, // required
-    image: photoURL,
-    callbackURL: "/login",
-});
-// console.log(data ,error)
-if(error){
-  alert(error.message);
-}
-if(data){
-  alert("Sign Up Successfull");
-}
+    try {
+      const { data, error } = await authClient.signUp.email({
+        name: name,
+        email: email,
+        password: password,
+        image: photoURL,
+        callbackURL: "/login",
+      });
+      if (error) {
+        alert(error.message);
+      }
+      if (data) {
+        alert("Sign Up Successful");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
 
@@ -164,8 +170,19 @@ if(data){
                 )}
               </div>
 
-              <button className="btn btn-primary w-full shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all duration-300 rounded-xl mt-8">
-                Register
+              <button 
+                type="submit"
+                disabled={loading}
+                className="btn btn-primary w-full shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all duration-300 rounded-xl mt-8 flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <ClipLoader size={18} color="#ffffff" />
+                    <span>Creating account...</span>
+                  </>
+                ) : (
+                  "Register"
+                )}
               </button>
             </fieldset>
           </form>

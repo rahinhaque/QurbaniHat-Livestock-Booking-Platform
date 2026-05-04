@@ -7,6 +7,7 @@ import React from 'react';
 import navbarLogo from '@/assets/navbar.png';
 import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 import { authClient } from '@/lib/auth-client';
+import { BeatLoader } from 'react-spinners';
 import { router } from 'better-auth/api';
 
 const links = [
@@ -19,7 +20,7 @@ const links = [
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
   console.log(user);
@@ -154,6 +155,11 @@ const Navbar = () => {
             className="btn btn-ghost btn-circle border border-base-300/70 bg-base-100/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-base-200/80 lg:hidden"
             aria-label="Toggle theme"
           />
+          {isPending && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/40 bg-muted/20">
+              <BeatLoader size={6} color="#d97706" />
+            </div>
+          )}
           {user && (
             <div className="tooltip tooltip-bottom" data-tip="View Profile">
               <Link href="/profile">

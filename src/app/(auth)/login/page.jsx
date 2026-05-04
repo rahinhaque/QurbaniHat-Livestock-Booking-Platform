@@ -4,10 +4,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
 
 const LoginPage = () => {
 
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const {
@@ -17,22 +19,27 @@ const LoginPage = () => {
   } = useForm();
 
   const handleLogin = async(data) => {
+    setLoading(true);
     console.log(data);
     const { email, password } = data;
 
-    const { data : res, error } = await authClient.signIn.email({
-    email: email, // required
-    password: password, // required
-    rememberMe: true,
-    callbackURL: "/",
-});
+    try {
+      const { data: res, error } = await authClient.signIn.email({
+        email: email,
+        password: password,
+        rememberMe: true,
+        callbackURL: "/",
+      });
 
-if(error){
-  alert(error.message);
-}
-if(res){
-  alert("Login Successfull");
-}
+      if (error) {
+        alert(error.message);
+      }
+      if (res) {
+        alert("Login Successful");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
  const handleGitHubSignIn = async () => {
@@ -132,9 +139,17 @@ if(res){
 
               <button
                 type="submit"
-                className="btn btn-primary w-full shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all duration-300 rounded-xl"
+                disabled={loading}
+                className="btn btn-primary w-full shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 transition-all duration-300 rounded-xl flex items-center justify-center gap-2"
               >
-                Sign In
+                {loading ? (
+                  <>
+                    <ClipLoader size={18} color="#ffffff" />
+                    <span>Signing in...</span>
+                  </>
+                ) : (
+                  "Sign In"
+                )}
               </button>
             </fieldset>
           </form>
