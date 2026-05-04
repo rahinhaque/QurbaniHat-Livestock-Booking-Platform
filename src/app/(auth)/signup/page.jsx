@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
 
@@ -32,10 +33,10 @@ const SignUpPage = () => {
         callbackURL: "/login",
       });
       if (error) {
-        alert(error.message);
+        toast.error(error.message || "Sign up failed. Please check your details.");
       }
       if (data) {
-        alert("Sign Up Successful");
+        toast.success("Sign Up Successful! Please log in.");
       }
     } finally {
       setLoading(false);

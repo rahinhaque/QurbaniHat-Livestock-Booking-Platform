@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
 
@@ -32,10 +33,10 @@ const LoginPage = () => {
       });
 
       if (error) {
-        alert(error.message);
+        toast.error(error.message || "Failed to sign in. Please try again.");
       }
       if (res) {
-        alert("Login Successful");
+        toast.success("Login Successful! Welcome back.");
       }
     } finally {
       setLoading(false);

@@ -1,8 +1,6 @@
 // components/BuyNowButton.jsx
 "use client";
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import BuyerForm from "./BuyerForm";
 
 const BuyNowButton = ({ animal }) => {
@@ -10,7 +8,6 @@ const BuyNowButton = ({ animal }) => {
 
   return (
     <>
-      <ToastContainer position="top-right" />
       <BuyerForm
         animal={animal}
         isOpen={isOpen}

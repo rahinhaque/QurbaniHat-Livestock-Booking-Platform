@@ -8,6 +8,7 @@ import navbarLogo from '@/assets/navbar.png';
 import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 import { authClient } from '@/lib/auth-client';
 import { BeatLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import { router } from 'better-auth/api';
 
 const links = [
@@ -77,6 +78,7 @@ const Navbar = () => {
                       await authClient.signOut({
                         fetchOptions: {
                           onSuccess: () => {
+                            toast.success("Logged out successfully");
                             router.push("/login");
                           },
                         },
@@ -201,6 +203,7 @@ const Navbar = () => {
                 await authClient.signOut({
                   fetchOptions: {
                     onSuccess: () => {
+                      toast.success("Logged out successfully");
                       router.push("/login");
                     },
                   },
