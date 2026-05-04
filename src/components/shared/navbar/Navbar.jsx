@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import navbarLogo from '@/assets/navbar.png';
 import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
@@ -18,6 +18,7 @@ const links = [
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
@@ -70,12 +71,20 @@ const Navbar = () => {
               ))}
               {user ? (
                 <li className="mt-2 border-t border-base-200 pt-2">
-                  <Link
-                    href="/"
-                    className="rounded-lg text-error hover:bg-error/10"
+                  <button
+                    onClick={async () =>
+                      await authClient.signOut({
+                        fetchOptions: {
+                          onSuccess: () => {
+                            router.push("/login");
+                          },
+                        },
+                      })
+                    }
+                    className="rounded-lg text-error hover:bg-error/10 text-left"
                   >
                     Logout
-                  </Link>
+                  </button>
                 </li>
               ) : (
                 <>

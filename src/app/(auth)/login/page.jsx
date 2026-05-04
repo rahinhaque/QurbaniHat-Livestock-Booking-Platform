@@ -1,10 +1,15 @@
 'use client';
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginPage = () => {
+
+  const [isShowPassword, setIsShowPassword] = useState(false);
+
+
   const {
     register,
     handleSubmit,
@@ -45,7 +50,6 @@ if(res){
 
           <form onSubmit={handleSubmit(handleLogin)}>
             <fieldset className="fieldset w-full p-0 border-0 bg-transparent">
-
               {/* Email */}
               <label className="label">
                 <span className="label-text font-semibold">Email</span>
@@ -65,31 +69,44 @@ if(res){
                 placeholder="Enter your email"
               />
               {errors.email && (
-                <p className="text-error text-xs mt-1">{errors.email.message}</p>
+                <p className="text-error text-xs mt-1">
+                  {errors.email.message}
+                </p>
               )}
 
               {/* Password */}
               <label className="label mt-4">
                 <span className="label-text font-semibold">Password</span>
               </label>
-              <input
-                type="password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                })}
-                className={`input input-bordered w-full focus:input-primary transition-all duration-300 ${
-                  errors.password ? "input-error" : ""
-                }`}
-                placeholder="Enter your password"
-              />
-              {errors.password && (
-                <p className="text-error text-xs mt-1">{errors.password.message}</p>
-              )}
 
+              <div className="relative w-full">
+                <input
+                  type={isShowPassword ? "text" : "password"}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                  className={`input input-bordered w-full pr-10 focus:input-primary transition-all duration-300 ${
+                    errors.password ? "input-error" : ""
+                  }`}
+                  placeholder="Enter your password"
+                />
+                <span
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-base-content/50 hover:text-base-content transition-colors"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                >
+                  {isShowPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+
+              {errors.password && (
+                <p className="text-error text-xs mt-1">
+                  {errors.password.message}
+                </p>
+              )}
               <div className="flex justify-end mt-2 mb-6">
                 <a
                   href="#"
@@ -123,10 +140,22 @@ if(res){
               >
                 <g>
                   <path d="m0 0H512V512H0" fill="transparent"></path>
-                  <path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>
-                  <path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path>
-                  <path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path>
-                  <path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path>
+                  <path
+                    fill="#34a853"
+                    d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                  ></path>
+                  <path
+                    fill="#4285f4"
+                    d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                  ></path>
+                  <path
+                    fill="#fbbc02"
+                    d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                  ></path>
+                  <path
+                    fill="#ea4335"
+                    d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                  ></path>
                 </g>
               </svg>
               Login with Google
