@@ -6,7 +6,7 @@ import AnimateOnScroll from "@/components/ui/AnimateOnScroll";
 const FeatureAnimalSection = async () => {
   const featuredAnimals = async () => {
     try {
-      const res = await fetch("http://localhost:3004/animals");
+      const res = await fetch("https://qurbanihat-server.onrender.com/animals");
       const data = await res.json();
       return data.filter((animal) => animal.isFeatured === true).slice(0, 4);
     } catch (error) {
@@ -18,7 +18,11 @@ const FeatureAnimalSection = async () => {
   return (
     <section className="py-12 px-4 max-w-6xl mx-auto">
       {/* Section Title */}
-      <AnimateOnScroll animation="fadeInDown" duration="0.6s" className="text-center mb-10">
+      <AnimateOnScroll
+        animation="fadeInDown"
+        duration="0.6s"
+        className="text-center mb-10"
+      >
         <h2 className="text-4xl font-extrabold">
           <span className="text-emerald-500">Premium</span> Qurbani Animals
           You'll Love

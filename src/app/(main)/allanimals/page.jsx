@@ -4,7 +4,7 @@ import AnimalGrid from '@/components/allanimals/AnimalGrid';
 
 const AllAnimalPage = async () => {
   const allAnimalsData = async () => {
-    const res = await fetch('http://localhost:3004/animals', { cache: 'no-store' });
+    const res = await fetch('https://qurbanihat-server.onrender.com/animals', { cache: 'no-store' });
     const data = await res.json();
     return data;
   };

@@ -4,7 +4,9 @@ import BuyNowButton from "@/components/BuyNowButton"; // ← add this import
 
 const AnimalDetails = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:3004/animals/${id}`);
+  const res = await fetch(
+    `https://qurbanihat-server.onrender.com/animals/${id}`,
+  );
   const animal = await res.json();
 
   return (
